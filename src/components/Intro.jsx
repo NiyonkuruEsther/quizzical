@@ -14,7 +14,7 @@ const Intro = () => {
         </h1>
         <button
           onClick={getStarted}
-          className="bg-blue200 text-center rounded-xl text-white100 w-full max-w-[10rem] py-3   text-sm font-medium tracking-wide mt-5 transition-transform active:scale-95 sm:text-base sm:py-4 sm:max-w-[12rem]"
+          className="bg-blue200 text-center rounded-xl text-white100 w-full max-w-[10rem] py-3 text-sm font-medium tracking-wide mt-5 transition-transform active:scale-95 sm:text-base sm:py-4 sm:max-w-[12rem]"
         >
           Get Started
         </button>

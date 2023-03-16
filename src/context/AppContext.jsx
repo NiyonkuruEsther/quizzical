@@ -4,6 +4,7 @@ import { reducer } from "../utils/reducers";
 
 const URL = "https://opentdb.com/api.php?";
 const AppContext = createContext();
+let style = "";
 
 const initialState = {
   data: [],
@@ -108,6 +109,7 @@ const AppProvider = ({ children }) => {
 
   const handleClassNames = (answer, questionsData, answersChecked) => {
     let classNames;
+    let correctClassNames = "";
     switch (true) {
       case answer.selected && !answersChecked:
         classNames = "bg-blue100 border-none";
@@ -122,17 +124,20 @@ const AppProvider = ({ children }) => {
         answersChecked &&
         answer.item === questionsData.correct_answer:
         classNames = "bg-correct border-none hover:bg-none";
+        correctClassNames = "bg-correct";
         break;
       case answer.selected &&
         answersChecked &&
         answer.item !== questionsData.correct_answer:
         classNames = "bg-incorrect border-none hover:bg-none opacity-50";
+        correctClassNames = questionsData.correct_answer ? "bg-correct" : "";
+        console.log(questionsData.correct_answer);
         break;
       default:
         classNames = "bg-transparent border hover:bg-blue100";
         break;
     }
-    return classNames;
+    return `${classNames} ${correctClassNames}`;
   };
 
   const selectAnswer = (answerID, questionsID) => {
