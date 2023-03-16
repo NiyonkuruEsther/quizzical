@@ -1,4 +1,3 @@
-import React from "react";
 import { useGlobalContext } from "../context/AppContext";
 import Loader from "./Loader";
 import Question from "./Question";
