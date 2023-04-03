@@ -1,30 +1,10 @@
 import { useContext, createContext, useReducer } from "react";
-import { v4 as uuidv4 } from "uuid";
 import { reducer } from "../utils/reducers";
+import { setQuestions } from "./GeneratingFunctions";
+import { initialState } from "./InitialState";
 
 const URL = "https://opentdb.com/api.php?";
 const AppContext = createContext();
-let style = "";
-
-const initialState = {
-  data: [],
-  loading: true,
-  category: "any",
-  type: "any",
-  difficulty: "any",
-  amount: 5,
-  categoryText: "any",
-  difficultyText: "any",
-  typeText: "any",
-  score: 0,
-  answersChecked: false,
-  quizStarted: false,
-  isChoosingOptions: false,
-  categoryOpen: false,
-  difficultyOpen: false,
-  typeOpen: false,
-  allAnswersSelected: true,
-};
 
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -51,32 +31,6 @@ const AppProvider = ({ children }) => {
   };
 
   /* Fisher-Yates shuffle algorithm to randomize the placement of answers */
-  function randomizeAnswers(answers) {
-    for (let i = answers.length - 1; i > 0; i--) {
-      let randomIndex = Math.floor(Math.random() * (i + 1));
-      [answers[i], answers[randomIndex]] = [answers[randomIndex], answers[i]];
-    }
-    return answers;
-  }
-
-  function setQuestions(data) {
-    return data.map((quest) => {
-      const { question, correct_answer, incorrect_answers } = quest;
-      const answers = randomizeAnswers([...incorrect_answers, correct_answer]);
-      return {
-        id: uuidv4(),
-        question,
-        correct_answer,
-        answers: answers.map((item) => {
-          return {
-            id: uuidv4(),
-            item,
-            selected: false,
-          };
-        }),
-      };
-    });
-  }
 
   const getStarted = () => dispatch({ type: "choose_options" });
 
