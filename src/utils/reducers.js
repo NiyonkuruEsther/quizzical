@@ -1,4 +1,4 @@
-export const reducer = (state, action) => {
+export function reducer(state, action) {
   switch (action.type) {
     case "choose_options":
       return {
@@ -136,4 +136,4 @@ export const reducer = (state, action) => {
     default:
       throw new Error("no matching action type");
   }
-};
+}
